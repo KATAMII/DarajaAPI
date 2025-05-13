@@ -4,7 +4,13 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import axios from 'axios';
+import path from 'path';
+import { fileURLToPath } from 'url';
 import { PrismaClient } from './generated/prisma/index.js';
+
+// Get __dirname equivalent in ESM
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Load environment variables from .env file
 dotenv.config();
@@ -24,6 +30,9 @@ app.use(cors({
 }));
 app.use(express.json());
 
+// Serve static files from the public directory
+app.use(express.static(path.join(__dirname, '..', 'public')));
+
 // Validate M-Pesa transaction ID for security
 const isValidMpesaTransactionId = (transactionId) => {
   // M-Pesa CheckoutRequestIDs follow a specific format
@@ -33,7 +42,7 @@ const isValidMpesaTransactionId = (transactionId) => {
 };
 
 // Sample route to test
-app.get('/', (req, res) => {
+app.get('/api', (req, res) => {
   res.send('M-Pesa API Server is running ✅');
 });
 
@@ -391,6 +400,12 @@ app.post('/check-transaction-status/:id', async (req, res) => {
       details: error.response?.data || error.message
     });
   }
+});
+
+// Define a catch-all route to serve your React app
+app.get('*', (req, res) => {
+  // This will serve your React app for all non-API routes
+  res.sendFile(path.join(__dirname, '..', 'public', 'index.html'));
 });
 
 // Start server

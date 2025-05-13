@@ -2,11 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './TransactionList.css';
 
-// Determine API URL based on environment
-const API_URL = 
-  process.env.NODE_ENV === 'production' 
-    ? 'https://darajaapi-production.up.railway.app' // Updated to match your actual Railway URL
-    : 'http://localhost:5001';
+// Use relative URLs since frontend and backend are served from the same domain
+const API_URL = '';
 
 const TransactionList = () => {
   const [transactions, setTransactions] = useState([]);
