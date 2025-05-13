@@ -372,20 +372,19 @@ app.post('/check-transaction-status/:id', async (req, res) => {
         where: { transactionId },
         data: {
           paymentStatus: 'Success',
-          receiptNumber: queryResponse.CheckoutRequestID || transaction.receiptNumber,
           resultCode: queryResponse.ResultCode.toString(),
           resultDesc: queryResponse.ResultDesc
         },
       });
       
-      // Also create a success transaction record
+      // Also create a success transaction record if it doesn't exist
       try {
         await prisma.successTransaction.create({
           data: {
             phoneNumber: transaction.phoneNumber,
             amount: transaction.amount,
             transactionId: transaction.transactionId,
-            receiptNumber: queryResponse.CheckoutRequestID || transaction.receiptNumber
+            receiptNumber: transaction.receiptNumber || '' // Use existing receipt number if available
           }
         });
       } catch (error) {
