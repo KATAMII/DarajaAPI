@@ -365,15 +365,32 @@ app.post('/check-transaction-status/:id', async (req, res) => {
     console.log('Mpesa Query Response:', queryResponse);
     
     // Update transaction based on response
-    if (queryResponse.ResultCode === 0) {
+    if (queryResponse.ResultCode === 0 || 
+        (queryResponse.ResultDesc && queryResponse.ResultDesc.toLowerCase().includes('processed successfully'))) {
       // Transaction was successful
       await prisma.transaction.update({
         where: { transactionId },
         data: {
           paymentStatus: 'Success',
-          // You might not get receipt number in query response
+          receiptNumber: queryResponse.CheckoutRequestID || transaction.receiptNumber,
+          resultCode: queryResponse.ResultCode.toString(),
+          resultDesc: queryResponse.ResultDesc
         },
       });
+      
+      // Also create a success transaction record
+      try {
+        await prisma.successTransaction.create({
+          data: {
+            phoneNumber: transaction.phoneNumber,
+            amount: transaction.amount,
+            transactionId: transaction.transactionId,
+            receiptNumber: queryResponse.CheckoutRequestID || transaction.receiptNumber
+          }
+        });
+      } catch (error) {
+        console.log('Note: Success transaction record might already exist');
+      }
       
       res.status(200).json({
         success: true,
@@ -384,12 +401,28 @@ app.post('/check-transaction-status/:id', async (req, res) => {
       // Transaction failed or is still pending
       const statusMessage = queryResponse.ResultDesc || 'Unknown status';
       
-      // If we get a definitive failure response, mark as failed
-      if (queryResponse.ResultCode !== 1037) { // 1037 is "timeout" which might mean still pending
+      // Only mark as failed for specific failure codes or explicit failure messages
+      const failureCodes = ['2001', '2002', '2003', '2004', '2005', '2006', '2007', '2008', '2009', '2010'];
+      const failureKeywords = ['failed', 'error', 'invalid', 'rejected', 'cancelled'];
+      
+      const isFailure = failureCodes.includes(queryResponse.ResultCode.toString()) ||
+                       failureKeywords.some(keyword => 
+                         queryResponse.ResultDesc?.toLowerCase().includes(keyword));
+      
+      if (isFailure) {
         await prisma.transaction.update({
           where: { transactionId },
           data: {
             paymentStatus: 'Failed',
+            resultCode: queryResponse.ResultCode.toString(),
+            resultDesc: queryResponse.ResultDesc
+          },
+        });
+      } else if (queryResponse.ResultCode !== 1037) {
+        // For other non-timeout codes, just update the status info but keep as pending
+        await prisma.transaction.update({
+          where: { transactionId },
+          data: {
             resultCode: queryResponse.ResultCode.toString(),
             resultDesc: queryResponse.ResultDesc
           },
