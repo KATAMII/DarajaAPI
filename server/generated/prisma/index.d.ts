@@ -18,6 +18,11 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
  * 
  */
 export type Transaction = $Result.DefaultSelection<Prisma.$TransactionPayload>
+/**
+ * Model SuccessTransaction
+ * 
+ */
+export type SuccessTransaction = $Result.DefaultSelection<Prisma.$SuccessTransactionPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -153,6 +158,16 @@ export class PrismaClient<
     * ```
     */
   get transaction(): Prisma.TransactionDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.successTransaction`: Exposes CRUD operations for the **SuccessTransaction** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more SuccessTransactions
+    * const successTransactions = await prisma.successTransaction.findMany()
+    * ```
+    */
+  get successTransaction(): Prisma.SuccessTransactionDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -593,7 +608,8 @@ export namespace Prisma {
 
 
   export const ModelName: {
-    Transaction: 'Transaction'
+    Transaction: 'Transaction',
+    SuccessTransaction: 'SuccessTransaction'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -612,7 +628,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "transaction"
+      modelProps: "transaction" | "successTransaction"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -687,6 +703,80 @@ export namespace Prisma {
           count: {
             args: Prisma.TransactionCountArgs<ExtArgs>
             result: $Utils.Optional<TransactionCountAggregateOutputType> | number
+          }
+        }
+      }
+      SuccessTransaction: {
+        payload: Prisma.$SuccessTransactionPayload<ExtArgs>
+        fields: Prisma.SuccessTransactionFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.SuccessTransactionFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SuccessTransactionPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.SuccessTransactionFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SuccessTransactionPayload>
+          }
+          findFirst: {
+            args: Prisma.SuccessTransactionFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SuccessTransactionPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.SuccessTransactionFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SuccessTransactionPayload>
+          }
+          findMany: {
+            args: Prisma.SuccessTransactionFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SuccessTransactionPayload>[]
+          }
+          create: {
+            args: Prisma.SuccessTransactionCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SuccessTransactionPayload>
+          }
+          createMany: {
+            args: Prisma.SuccessTransactionCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.SuccessTransactionCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SuccessTransactionPayload>[]
+          }
+          delete: {
+            args: Prisma.SuccessTransactionDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SuccessTransactionPayload>
+          }
+          update: {
+            args: Prisma.SuccessTransactionUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SuccessTransactionPayload>
+          }
+          deleteMany: {
+            args: Prisma.SuccessTransactionDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.SuccessTransactionUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.SuccessTransactionUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SuccessTransactionPayload>[]
+          }
+          upsert: {
+            args: Prisma.SuccessTransactionUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SuccessTransactionPayload>
+          }
+          aggregate: {
+            args: Prisma.SuccessTransactionAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSuccessTransaction>
+          }
+          groupBy: {
+            args: Prisma.SuccessTransactionGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SuccessTransactionGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.SuccessTransactionCountArgs<ExtArgs>
+            result: $Utils.Optional<SuccessTransactionCountAggregateOutputType> | number
           }
         }
       }
@@ -775,6 +865,7 @@ export namespace Prisma {
   }
   export type GlobalOmitConfig = {
     transaction?: TransactionOmit
+    successTransaction?: SuccessTransactionOmit
   }
 
   /* Types for Logging */
@@ -898,6 +989,8 @@ export namespace Prisma {
     transactionId: string | null
     paymentStatus: string | null
     receiptNumber: string | null
+    resultCode: string | null
+    resultDesc: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -909,6 +1002,8 @@ export namespace Prisma {
     transactionId: string | null
     paymentStatus: string | null
     receiptNumber: string | null
+    resultCode: string | null
+    resultDesc: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -920,6 +1015,8 @@ export namespace Prisma {
     transactionId: number
     paymentStatus: number
     receiptNumber: number
+    resultCode: number
+    resultDesc: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -943,6 +1040,8 @@ export namespace Prisma {
     transactionId?: true
     paymentStatus?: true
     receiptNumber?: true
+    resultCode?: true
+    resultDesc?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -954,6 +1053,8 @@ export namespace Prisma {
     transactionId?: true
     paymentStatus?: true
     receiptNumber?: true
+    resultCode?: true
+    resultDesc?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -965,6 +1066,8 @@ export namespace Prisma {
     transactionId?: true
     paymentStatus?: true
     receiptNumber?: true
+    resultCode?: true
+    resultDesc?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -1063,6 +1166,8 @@ export namespace Prisma {
     transactionId: string
     paymentStatus: string
     receiptNumber: string | null
+    resultCode: string | null
+    resultDesc: string | null
     createdAt: Date
     updatedAt: Date
     _count: TransactionCountAggregateOutputType | null
@@ -1093,6 +1198,8 @@ export namespace Prisma {
     transactionId?: boolean
     paymentStatus?: boolean
     receiptNumber?: boolean
+    resultCode?: boolean
+    resultDesc?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["transaction"]>
@@ -1104,6 +1211,8 @@ export namespace Prisma {
     transactionId?: boolean
     paymentStatus?: boolean
     receiptNumber?: boolean
+    resultCode?: boolean
+    resultDesc?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["transaction"]>
@@ -1115,6 +1224,8 @@ export namespace Prisma {
     transactionId?: boolean
     paymentStatus?: boolean
     receiptNumber?: boolean
+    resultCode?: boolean
+    resultDesc?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }, ExtArgs["result"]["transaction"]>
@@ -1126,11 +1237,13 @@ export namespace Prisma {
     transactionId?: boolean
     paymentStatus?: boolean
     receiptNumber?: boolean
+    resultCode?: boolean
+    resultDesc?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type TransactionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "phoneNumber" | "amount" | "transactionId" | "paymentStatus" | "receiptNumber" | "createdAt" | "updatedAt", ExtArgs["result"]["transaction"]>
+  export type TransactionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "phoneNumber" | "amount" | "transactionId" | "paymentStatus" | "receiptNumber" | "resultCode" | "resultDesc" | "createdAt" | "updatedAt", ExtArgs["result"]["transaction"]>
 
   export type $TransactionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Transaction"
@@ -1142,6 +1255,8 @@ export namespace Prisma {
       transactionId: string
       paymentStatus: string
       receiptNumber: string | null
+      resultCode: string | null
+      resultDesc: string | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["transaction"]>
@@ -1573,6 +1688,8 @@ export namespace Prisma {
     readonly transactionId: FieldRef<"Transaction", 'String'>
     readonly paymentStatus: FieldRef<"Transaction", 'String'>
     readonly receiptNumber: FieldRef<"Transaction", 'String'>
+    readonly resultCode: FieldRef<"Transaction", 'String'>
+    readonly resultDesc: FieldRef<"Transaction", 'String'>
     readonly createdAt: FieldRef<"Transaction", 'DateTime'>
     readonly updatedAt: FieldRef<"Transaction", 'DateTime'>
   }
@@ -1942,6 +2059,1052 @@ export namespace Prisma {
 
 
   /**
+   * Model SuccessTransaction
+   */
+
+  export type AggregateSuccessTransaction = {
+    _count: SuccessTransactionCountAggregateOutputType | null
+    _avg: SuccessTransactionAvgAggregateOutputType | null
+    _sum: SuccessTransactionSumAggregateOutputType | null
+    _min: SuccessTransactionMinAggregateOutputType | null
+    _max: SuccessTransactionMaxAggregateOutputType | null
+  }
+
+  export type SuccessTransactionAvgAggregateOutputType = {
+    id: number | null
+    amount: number | null
+  }
+
+  export type SuccessTransactionSumAggregateOutputType = {
+    id: number | null
+    amount: number | null
+  }
+
+  export type SuccessTransactionMinAggregateOutputType = {
+    id: number | null
+    phoneNumber: string | null
+    amount: number | null
+    transactionId: string | null
+    receiptNumber: string | null
+    createdAt: Date | null
+  }
+
+  export type SuccessTransactionMaxAggregateOutputType = {
+    id: number | null
+    phoneNumber: string | null
+    amount: number | null
+    transactionId: string | null
+    receiptNumber: string | null
+    createdAt: Date | null
+  }
+
+  export type SuccessTransactionCountAggregateOutputType = {
+    id: number
+    phoneNumber: number
+    amount: number
+    transactionId: number
+    receiptNumber: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type SuccessTransactionAvgAggregateInputType = {
+    id?: true
+    amount?: true
+  }
+
+  export type SuccessTransactionSumAggregateInputType = {
+    id?: true
+    amount?: true
+  }
+
+  export type SuccessTransactionMinAggregateInputType = {
+    id?: true
+    phoneNumber?: true
+    amount?: true
+    transactionId?: true
+    receiptNumber?: true
+    createdAt?: true
+  }
+
+  export type SuccessTransactionMaxAggregateInputType = {
+    id?: true
+    phoneNumber?: true
+    amount?: true
+    transactionId?: true
+    receiptNumber?: true
+    createdAt?: true
+  }
+
+  export type SuccessTransactionCountAggregateInputType = {
+    id?: true
+    phoneNumber?: true
+    amount?: true
+    transactionId?: true
+    receiptNumber?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type SuccessTransactionAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SuccessTransaction to aggregate.
+     */
+    where?: SuccessTransactionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SuccessTransactions to fetch.
+     */
+    orderBy?: SuccessTransactionOrderByWithRelationInput | SuccessTransactionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: SuccessTransactionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SuccessTransactions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SuccessTransactions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned SuccessTransactions
+    **/
+    _count?: true | SuccessTransactionCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: SuccessTransactionAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: SuccessTransactionSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SuccessTransactionMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SuccessTransactionMaxAggregateInputType
+  }
+
+  export type GetSuccessTransactionAggregateType<T extends SuccessTransactionAggregateArgs> = {
+        [P in keyof T & keyof AggregateSuccessTransaction]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSuccessTransaction[P]>
+      : GetScalarType<T[P], AggregateSuccessTransaction[P]>
+  }
+
+
+
+
+  export type SuccessTransactionGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SuccessTransactionWhereInput
+    orderBy?: SuccessTransactionOrderByWithAggregationInput | SuccessTransactionOrderByWithAggregationInput[]
+    by: SuccessTransactionScalarFieldEnum[] | SuccessTransactionScalarFieldEnum
+    having?: SuccessTransactionScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SuccessTransactionCountAggregateInputType | true
+    _avg?: SuccessTransactionAvgAggregateInputType
+    _sum?: SuccessTransactionSumAggregateInputType
+    _min?: SuccessTransactionMinAggregateInputType
+    _max?: SuccessTransactionMaxAggregateInputType
+  }
+
+  export type SuccessTransactionGroupByOutputType = {
+    id: number
+    phoneNumber: string
+    amount: number
+    transactionId: string
+    receiptNumber: string
+    createdAt: Date
+    _count: SuccessTransactionCountAggregateOutputType | null
+    _avg: SuccessTransactionAvgAggregateOutputType | null
+    _sum: SuccessTransactionSumAggregateOutputType | null
+    _min: SuccessTransactionMinAggregateOutputType | null
+    _max: SuccessTransactionMaxAggregateOutputType | null
+  }
+
+  type GetSuccessTransactionGroupByPayload<T extends SuccessTransactionGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SuccessTransactionGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SuccessTransactionGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SuccessTransactionGroupByOutputType[P]>
+            : GetScalarType<T[P], SuccessTransactionGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type SuccessTransactionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    phoneNumber?: boolean
+    amount?: boolean
+    transactionId?: boolean
+    receiptNumber?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["successTransaction"]>
+
+  export type SuccessTransactionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    phoneNumber?: boolean
+    amount?: boolean
+    transactionId?: boolean
+    receiptNumber?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["successTransaction"]>
+
+  export type SuccessTransactionSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    phoneNumber?: boolean
+    amount?: boolean
+    transactionId?: boolean
+    receiptNumber?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["successTransaction"]>
+
+  export type SuccessTransactionSelectScalar = {
+    id?: boolean
+    phoneNumber?: boolean
+    amount?: boolean
+    transactionId?: boolean
+    receiptNumber?: boolean
+    createdAt?: boolean
+  }
+
+  export type SuccessTransactionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "phoneNumber" | "amount" | "transactionId" | "receiptNumber" | "createdAt", ExtArgs["result"]["successTransaction"]>
+
+  export type $SuccessTransactionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "SuccessTransaction"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      phoneNumber: string
+      amount: number
+      transactionId: string
+      receiptNumber: string
+      createdAt: Date
+    }, ExtArgs["result"]["successTransaction"]>
+    composites: {}
+  }
+
+  type SuccessTransactionGetPayload<S extends boolean | null | undefined | SuccessTransactionDefaultArgs> = $Result.GetResult<Prisma.$SuccessTransactionPayload, S>
+
+  type SuccessTransactionCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<SuccessTransactionFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: SuccessTransactionCountAggregateInputType | true
+    }
+
+  export interface SuccessTransactionDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['SuccessTransaction'], meta: { name: 'SuccessTransaction' } }
+    /**
+     * Find zero or one SuccessTransaction that matches the filter.
+     * @param {SuccessTransactionFindUniqueArgs} args - Arguments to find a SuccessTransaction
+     * @example
+     * // Get one SuccessTransaction
+     * const successTransaction = await prisma.successTransaction.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends SuccessTransactionFindUniqueArgs>(args: SelectSubset<T, SuccessTransactionFindUniqueArgs<ExtArgs>>): Prisma__SuccessTransactionClient<$Result.GetResult<Prisma.$SuccessTransactionPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one SuccessTransaction that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {SuccessTransactionFindUniqueOrThrowArgs} args - Arguments to find a SuccessTransaction
+     * @example
+     * // Get one SuccessTransaction
+     * const successTransaction = await prisma.successTransaction.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends SuccessTransactionFindUniqueOrThrowArgs>(args: SelectSubset<T, SuccessTransactionFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SuccessTransactionClient<$Result.GetResult<Prisma.$SuccessTransactionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first SuccessTransaction that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SuccessTransactionFindFirstArgs} args - Arguments to find a SuccessTransaction
+     * @example
+     * // Get one SuccessTransaction
+     * const successTransaction = await prisma.successTransaction.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends SuccessTransactionFindFirstArgs>(args?: SelectSubset<T, SuccessTransactionFindFirstArgs<ExtArgs>>): Prisma__SuccessTransactionClient<$Result.GetResult<Prisma.$SuccessTransactionPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first SuccessTransaction that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SuccessTransactionFindFirstOrThrowArgs} args - Arguments to find a SuccessTransaction
+     * @example
+     * // Get one SuccessTransaction
+     * const successTransaction = await prisma.successTransaction.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends SuccessTransactionFindFirstOrThrowArgs>(args?: SelectSubset<T, SuccessTransactionFindFirstOrThrowArgs<ExtArgs>>): Prisma__SuccessTransactionClient<$Result.GetResult<Prisma.$SuccessTransactionPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more SuccessTransactions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SuccessTransactionFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all SuccessTransactions
+     * const successTransactions = await prisma.successTransaction.findMany()
+     * 
+     * // Get first 10 SuccessTransactions
+     * const successTransactions = await prisma.successTransaction.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const successTransactionWithIdOnly = await prisma.successTransaction.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends SuccessTransactionFindManyArgs>(args?: SelectSubset<T, SuccessTransactionFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SuccessTransactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a SuccessTransaction.
+     * @param {SuccessTransactionCreateArgs} args - Arguments to create a SuccessTransaction.
+     * @example
+     * // Create one SuccessTransaction
+     * const SuccessTransaction = await prisma.successTransaction.create({
+     *   data: {
+     *     // ... data to create a SuccessTransaction
+     *   }
+     * })
+     * 
+     */
+    create<T extends SuccessTransactionCreateArgs>(args: SelectSubset<T, SuccessTransactionCreateArgs<ExtArgs>>): Prisma__SuccessTransactionClient<$Result.GetResult<Prisma.$SuccessTransactionPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many SuccessTransactions.
+     * @param {SuccessTransactionCreateManyArgs} args - Arguments to create many SuccessTransactions.
+     * @example
+     * // Create many SuccessTransactions
+     * const successTransaction = await prisma.successTransaction.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends SuccessTransactionCreateManyArgs>(args?: SelectSubset<T, SuccessTransactionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many SuccessTransactions and returns the data saved in the database.
+     * @param {SuccessTransactionCreateManyAndReturnArgs} args - Arguments to create many SuccessTransactions.
+     * @example
+     * // Create many SuccessTransactions
+     * const successTransaction = await prisma.successTransaction.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many SuccessTransactions and only return the `id`
+     * const successTransactionWithIdOnly = await prisma.successTransaction.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends SuccessTransactionCreateManyAndReturnArgs>(args?: SelectSubset<T, SuccessTransactionCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SuccessTransactionPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a SuccessTransaction.
+     * @param {SuccessTransactionDeleteArgs} args - Arguments to delete one SuccessTransaction.
+     * @example
+     * // Delete one SuccessTransaction
+     * const SuccessTransaction = await prisma.successTransaction.delete({
+     *   where: {
+     *     // ... filter to delete one SuccessTransaction
+     *   }
+     * })
+     * 
+     */
+    delete<T extends SuccessTransactionDeleteArgs>(args: SelectSubset<T, SuccessTransactionDeleteArgs<ExtArgs>>): Prisma__SuccessTransactionClient<$Result.GetResult<Prisma.$SuccessTransactionPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one SuccessTransaction.
+     * @param {SuccessTransactionUpdateArgs} args - Arguments to update one SuccessTransaction.
+     * @example
+     * // Update one SuccessTransaction
+     * const successTransaction = await prisma.successTransaction.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends SuccessTransactionUpdateArgs>(args: SelectSubset<T, SuccessTransactionUpdateArgs<ExtArgs>>): Prisma__SuccessTransactionClient<$Result.GetResult<Prisma.$SuccessTransactionPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more SuccessTransactions.
+     * @param {SuccessTransactionDeleteManyArgs} args - Arguments to filter SuccessTransactions to delete.
+     * @example
+     * // Delete a few SuccessTransactions
+     * const { count } = await prisma.successTransaction.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends SuccessTransactionDeleteManyArgs>(args?: SelectSubset<T, SuccessTransactionDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SuccessTransactions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SuccessTransactionUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many SuccessTransactions
+     * const successTransaction = await prisma.successTransaction.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends SuccessTransactionUpdateManyArgs>(args: SelectSubset<T, SuccessTransactionUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SuccessTransactions and returns the data updated in the database.
+     * @param {SuccessTransactionUpdateManyAndReturnArgs} args - Arguments to update many SuccessTransactions.
+     * @example
+     * // Update many SuccessTransactions
+     * const successTransaction = await prisma.successTransaction.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more SuccessTransactions and only return the `id`
+     * const successTransactionWithIdOnly = await prisma.successTransaction.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends SuccessTransactionUpdateManyAndReturnArgs>(args: SelectSubset<T, SuccessTransactionUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SuccessTransactionPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one SuccessTransaction.
+     * @param {SuccessTransactionUpsertArgs} args - Arguments to update or create a SuccessTransaction.
+     * @example
+     * // Update or create a SuccessTransaction
+     * const successTransaction = await prisma.successTransaction.upsert({
+     *   create: {
+     *     // ... data to create a SuccessTransaction
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the SuccessTransaction we want to update
+     *   }
+     * })
+     */
+    upsert<T extends SuccessTransactionUpsertArgs>(args: SelectSubset<T, SuccessTransactionUpsertArgs<ExtArgs>>): Prisma__SuccessTransactionClient<$Result.GetResult<Prisma.$SuccessTransactionPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of SuccessTransactions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SuccessTransactionCountArgs} args - Arguments to filter SuccessTransactions to count.
+     * @example
+     * // Count the number of SuccessTransactions
+     * const count = await prisma.successTransaction.count({
+     *   where: {
+     *     // ... the filter for the SuccessTransactions we want to count
+     *   }
+     * })
+    **/
+    count<T extends SuccessTransactionCountArgs>(
+      args?: Subset<T, SuccessTransactionCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SuccessTransactionCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a SuccessTransaction.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SuccessTransactionAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SuccessTransactionAggregateArgs>(args: Subset<T, SuccessTransactionAggregateArgs>): Prisma.PrismaPromise<GetSuccessTransactionAggregateType<T>>
+
+    /**
+     * Group by SuccessTransaction.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SuccessTransactionGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends SuccessTransactionGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: SuccessTransactionGroupByArgs['orderBy'] }
+        : { orderBy?: SuccessTransactionGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, SuccessTransactionGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSuccessTransactionGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the SuccessTransaction model
+   */
+  readonly fields: SuccessTransactionFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for SuccessTransaction.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__SuccessTransactionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the SuccessTransaction model
+   */
+  interface SuccessTransactionFieldRefs {
+    readonly id: FieldRef<"SuccessTransaction", 'Int'>
+    readonly phoneNumber: FieldRef<"SuccessTransaction", 'String'>
+    readonly amount: FieldRef<"SuccessTransaction", 'Float'>
+    readonly transactionId: FieldRef<"SuccessTransaction", 'String'>
+    readonly receiptNumber: FieldRef<"SuccessTransaction", 'String'>
+    readonly createdAt: FieldRef<"SuccessTransaction", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * SuccessTransaction findUnique
+   */
+  export type SuccessTransactionFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SuccessTransaction
+     */
+    select?: SuccessTransactionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SuccessTransaction
+     */
+    omit?: SuccessTransactionOmit<ExtArgs> | null
+    /**
+     * Filter, which SuccessTransaction to fetch.
+     */
+    where: SuccessTransactionWhereUniqueInput
+  }
+
+  /**
+   * SuccessTransaction findUniqueOrThrow
+   */
+  export type SuccessTransactionFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SuccessTransaction
+     */
+    select?: SuccessTransactionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SuccessTransaction
+     */
+    omit?: SuccessTransactionOmit<ExtArgs> | null
+    /**
+     * Filter, which SuccessTransaction to fetch.
+     */
+    where: SuccessTransactionWhereUniqueInput
+  }
+
+  /**
+   * SuccessTransaction findFirst
+   */
+  export type SuccessTransactionFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SuccessTransaction
+     */
+    select?: SuccessTransactionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SuccessTransaction
+     */
+    omit?: SuccessTransactionOmit<ExtArgs> | null
+    /**
+     * Filter, which SuccessTransaction to fetch.
+     */
+    where?: SuccessTransactionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SuccessTransactions to fetch.
+     */
+    orderBy?: SuccessTransactionOrderByWithRelationInput | SuccessTransactionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SuccessTransactions.
+     */
+    cursor?: SuccessTransactionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SuccessTransactions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SuccessTransactions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SuccessTransactions.
+     */
+    distinct?: SuccessTransactionScalarFieldEnum | SuccessTransactionScalarFieldEnum[]
+  }
+
+  /**
+   * SuccessTransaction findFirstOrThrow
+   */
+  export type SuccessTransactionFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SuccessTransaction
+     */
+    select?: SuccessTransactionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SuccessTransaction
+     */
+    omit?: SuccessTransactionOmit<ExtArgs> | null
+    /**
+     * Filter, which SuccessTransaction to fetch.
+     */
+    where?: SuccessTransactionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SuccessTransactions to fetch.
+     */
+    orderBy?: SuccessTransactionOrderByWithRelationInput | SuccessTransactionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SuccessTransactions.
+     */
+    cursor?: SuccessTransactionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SuccessTransactions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SuccessTransactions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SuccessTransactions.
+     */
+    distinct?: SuccessTransactionScalarFieldEnum | SuccessTransactionScalarFieldEnum[]
+  }
+
+  /**
+   * SuccessTransaction findMany
+   */
+  export type SuccessTransactionFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SuccessTransaction
+     */
+    select?: SuccessTransactionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SuccessTransaction
+     */
+    omit?: SuccessTransactionOmit<ExtArgs> | null
+    /**
+     * Filter, which SuccessTransactions to fetch.
+     */
+    where?: SuccessTransactionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SuccessTransactions to fetch.
+     */
+    orderBy?: SuccessTransactionOrderByWithRelationInput | SuccessTransactionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing SuccessTransactions.
+     */
+    cursor?: SuccessTransactionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SuccessTransactions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SuccessTransactions.
+     */
+    skip?: number
+    distinct?: SuccessTransactionScalarFieldEnum | SuccessTransactionScalarFieldEnum[]
+  }
+
+  /**
+   * SuccessTransaction create
+   */
+  export type SuccessTransactionCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SuccessTransaction
+     */
+    select?: SuccessTransactionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SuccessTransaction
+     */
+    omit?: SuccessTransactionOmit<ExtArgs> | null
+    /**
+     * The data needed to create a SuccessTransaction.
+     */
+    data: XOR<SuccessTransactionCreateInput, SuccessTransactionUncheckedCreateInput>
+  }
+
+  /**
+   * SuccessTransaction createMany
+   */
+  export type SuccessTransactionCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many SuccessTransactions.
+     */
+    data: SuccessTransactionCreateManyInput | SuccessTransactionCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * SuccessTransaction createManyAndReturn
+   */
+  export type SuccessTransactionCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SuccessTransaction
+     */
+    select?: SuccessTransactionSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the SuccessTransaction
+     */
+    omit?: SuccessTransactionOmit<ExtArgs> | null
+    /**
+     * The data used to create many SuccessTransactions.
+     */
+    data: SuccessTransactionCreateManyInput | SuccessTransactionCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * SuccessTransaction update
+   */
+  export type SuccessTransactionUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SuccessTransaction
+     */
+    select?: SuccessTransactionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SuccessTransaction
+     */
+    omit?: SuccessTransactionOmit<ExtArgs> | null
+    /**
+     * The data needed to update a SuccessTransaction.
+     */
+    data: XOR<SuccessTransactionUpdateInput, SuccessTransactionUncheckedUpdateInput>
+    /**
+     * Choose, which SuccessTransaction to update.
+     */
+    where: SuccessTransactionWhereUniqueInput
+  }
+
+  /**
+   * SuccessTransaction updateMany
+   */
+  export type SuccessTransactionUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update SuccessTransactions.
+     */
+    data: XOR<SuccessTransactionUpdateManyMutationInput, SuccessTransactionUncheckedUpdateManyInput>
+    /**
+     * Filter which SuccessTransactions to update
+     */
+    where?: SuccessTransactionWhereInput
+    /**
+     * Limit how many SuccessTransactions to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * SuccessTransaction updateManyAndReturn
+   */
+  export type SuccessTransactionUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SuccessTransaction
+     */
+    select?: SuccessTransactionSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the SuccessTransaction
+     */
+    omit?: SuccessTransactionOmit<ExtArgs> | null
+    /**
+     * The data used to update SuccessTransactions.
+     */
+    data: XOR<SuccessTransactionUpdateManyMutationInput, SuccessTransactionUncheckedUpdateManyInput>
+    /**
+     * Filter which SuccessTransactions to update
+     */
+    where?: SuccessTransactionWhereInput
+    /**
+     * Limit how many SuccessTransactions to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * SuccessTransaction upsert
+   */
+  export type SuccessTransactionUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SuccessTransaction
+     */
+    select?: SuccessTransactionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SuccessTransaction
+     */
+    omit?: SuccessTransactionOmit<ExtArgs> | null
+    /**
+     * The filter to search for the SuccessTransaction to update in case it exists.
+     */
+    where: SuccessTransactionWhereUniqueInput
+    /**
+     * In case the SuccessTransaction found by the `where` argument doesn't exist, create a new SuccessTransaction with this data.
+     */
+    create: XOR<SuccessTransactionCreateInput, SuccessTransactionUncheckedCreateInput>
+    /**
+     * In case the SuccessTransaction was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<SuccessTransactionUpdateInput, SuccessTransactionUncheckedUpdateInput>
+  }
+
+  /**
+   * SuccessTransaction delete
+   */
+  export type SuccessTransactionDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SuccessTransaction
+     */
+    select?: SuccessTransactionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SuccessTransaction
+     */
+    omit?: SuccessTransactionOmit<ExtArgs> | null
+    /**
+     * Filter which SuccessTransaction to delete.
+     */
+    where: SuccessTransactionWhereUniqueInput
+  }
+
+  /**
+   * SuccessTransaction deleteMany
+   */
+  export type SuccessTransactionDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SuccessTransactions to delete
+     */
+    where?: SuccessTransactionWhereInput
+    /**
+     * Limit how many SuccessTransactions to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * SuccessTransaction without action
+   */
+  export type SuccessTransactionDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SuccessTransaction
+     */
+    select?: SuccessTransactionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SuccessTransaction
+     */
+    omit?: SuccessTransactionOmit<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -1962,11 +3125,25 @@ export namespace Prisma {
     transactionId: 'transactionId',
     paymentStatus: 'paymentStatus',
     receiptNumber: 'receiptNumber',
+    resultCode: 'resultCode',
+    resultDesc: 'resultDesc',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
 
   export type TransactionScalarFieldEnum = (typeof TransactionScalarFieldEnum)[keyof typeof TransactionScalarFieldEnum]
+
+
+  export const SuccessTransactionScalarFieldEnum: {
+    id: 'id',
+    phoneNumber: 'phoneNumber',
+    amount: 'amount',
+    transactionId: 'transactionId',
+    receiptNumber: 'receiptNumber',
+    createdAt: 'createdAt'
+  };
+
+  export type SuccessTransactionScalarFieldEnum = (typeof SuccessTransactionScalarFieldEnum)[keyof typeof SuccessTransactionScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -2067,6 +3244,8 @@ export namespace Prisma {
     transactionId?: StringFilter<"Transaction"> | string
     paymentStatus?: StringFilter<"Transaction"> | string
     receiptNumber?: StringNullableFilter<"Transaction"> | string | null
+    resultCode?: StringNullableFilter<"Transaction"> | string | null
+    resultDesc?: StringNullableFilter<"Transaction"> | string | null
     createdAt?: DateTimeFilter<"Transaction"> | Date | string
     updatedAt?: DateTimeFilter<"Transaction"> | Date | string
   }
@@ -2078,6 +3257,8 @@ export namespace Prisma {
     transactionId?: SortOrder
     paymentStatus?: SortOrder
     receiptNumber?: SortOrderInput | SortOrder
+    resultCode?: SortOrderInput | SortOrder
+    resultDesc?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -2092,6 +3273,8 @@ export namespace Prisma {
     amount?: FloatFilter<"Transaction"> | number
     paymentStatus?: StringFilter<"Transaction"> | string
     receiptNumber?: StringNullableFilter<"Transaction"> | string | null
+    resultCode?: StringNullableFilter<"Transaction"> | string | null
+    resultDesc?: StringNullableFilter<"Transaction"> | string | null
     createdAt?: DateTimeFilter<"Transaction"> | Date | string
     updatedAt?: DateTimeFilter<"Transaction"> | Date | string
   }, "id" | "transactionId">
@@ -2103,6 +3286,8 @@ export namespace Prisma {
     transactionId?: SortOrder
     paymentStatus?: SortOrder
     receiptNumber?: SortOrderInput | SortOrder
+    resultCode?: SortOrderInput | SortOrder
+    resultDesc?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: TransactionCountOrderByAggregateInput
@@ -2122,8 +3307,69 @@ export namespace Prisma {
     transactionId?: StringWithAggregatesFilter<"Transaction"> | string
     paymentStatus?: StringWithAggregatesFilter<"Transaction"> | string
     receiptNumber?: StringNullableWithAggregatesFilter<"Transaction"> | string | null
+    resultCode?: StringNullableWithAggregatesFilter<"Transaction"> | string | null
+    resultDesc?: StringNullableWithAggregatesFilter<"Transaction"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Transaction"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Transaction"> | Date | string
+  }
+
+  export type SuccessTransactionWhereInput = {
+    AND?: SuccessTransactionWhereInput | SuccessTransactionWhereInput[]
+    OR?: SuccessTransactionWhereInput[]
+    NOT?: SuccessTransactionWhereInput | SuccessTransactionWhereInput[]
+    id?: IntFilter<"SuccessTransaction"> | number
+    phoneNumber?: StringFilter<"SuccessTransaction"> | string
+    amount?: FloatFilter<"SuccessTransaction"> | number
+    transactionId?: StringFilter<"SuccessTransaction"> | string
+    receiptNumber?: StringFilter<"SuccessTransaction"> | string
+    createdAt?: DateTimeFilter<"SuccessTransaction"> | Date | string
+  }
+
+  export type SuccessTransactionOrderByWithRelationInput = {
+    id?: SortOrder
+    phoneNumber?: SortOrder
+    amount?: SortOrder
+    transactionId?: SortOrder
+    receiptNumber?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type SuccessTransactionWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    transactionId?: string
+    AND?: SuccessTransactionWhereInput | SuccessTransactionWhereInput[]
+    OR?: SuccessTransactionWhereInput[]
+    NOT?: SuccessTransactionWhereInput | SuccessTransactionWhereInput[]
+    phoneNumber?: StringFilter<"SuccessTransaction"> | string
+    amount?: FloatFilter<"SuccessTransaction"> | number
+    receiptNumber?: StringFilter<"SuccessTransaction"> | string
+    createdAt?: DateTimeFilter<"SuccessTransaction"> | Date | string
+  }, "id" | "transactionId">
+
+  export type SuccessTransactionOrderByWithAggregationInput = {
+    id?: SortOrder
+    phoneNumber?: SortOrder
+    amount?: SortOrder
+    transactionId?: SortOrder
+    receiptNumber?: SortOrder
+    createdAt?: SortOrder
+    _count?: SuccessTransactionCountOrderByAggregateInput
+    _avg?: SuccessTransactionAvgOrderByAggregateInput
+    _max?: SuccessTransactionMaxOrderByAggregateInput
+    _min?: SuccessTransactionMinOrderByAggregateInput
+    _sum?: SuccessTransactionSumOrderByAggregateInput
+  }
+
+  export type SuccessTransactionScalarWhereWithAggregatesInput = {
+    AND?: SuccessTransactionScalarWhereWithAggregatesInput | SuccessTransactionScalarWhereWithAggregatesInput[]
+    OR?: SuccessTransactionScalarWhereWithAggregatesInput[]
+    NOT?: SuccessTransactionScalarWhereWithAggregatesInput | SuccessTransactionScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"SuccessTransaction"> | number
+    phoneNumber?: StringWithAggregatesFilter<"SuccessTransaction"> | string
+    amount?: FloatWithAggregatesFilter<"SuccessTransaction"> | number
+    transactionId?: StringWithAggregatesFilter<"SuccessTransaction"> | string
+    receiptNumber?: StringWithAggregatesFilter<"SuccessTransaction"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"SuccessTransaction"> | Date | string
   }
 
   export type TransactionCreateInput = {
@@ -2132,6 +3378,8 @@ export namespace Prisma {
     transactionId: string
     paymentStatus: string
     receiptNumber?: string | null
+    resultCode?: string | null
+    resultDesc?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -2143,6 +3391,8 @@ export namespace Prisma {
     transactionId: string
     paymentStatus: string
     receiptNumber?: string | null
+    resultCode?: string | null
+    resultDesc?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -2153,6 +3403,8 @@ export namespace Prisma {
     transactionId?: StringFieldUpdateOperationsInput | string
     paymentStatus?: StringFieldUpdateOperationsInput | string
     receiptNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    resultCode?: NullableStringFieldUpdateOperationsInput | string | null
+    resultDesc?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -2164,6 +3416,8 @@ export namespace Prisma {
     transactionId?: StringFieldUpdateOperationsInput | string
     paymentStatus?: StringFieldUpdateOperationsInput | string
     receiptNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    resultCode?: NullableStringFieldUpdateOperationsInput | string | null
+    resultDesc?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -2175,6 +3429,8 @@ export namespace Prisma {
     transactionId: string
     paymentStatus: string
     receiptNumber?: string | null
+    resultCode?: string | null
+    resultDesc?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -2185,6 +3441,8 @@ export namespace Prisma {
     transactionId?: StringFieldUpdateOperationsInput | string
     paymentStatus?: StringFieldUpdateOperationsInput | string
     receiptNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    resultCode?: NullableStringFieldUpdateOperationsInput | string | null
+    resultDesc?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -2196,8 +3454,70 @@ export namespace Prisma {
     transactionId?: StringFieldUpdateOperationsInput | string
     paymentStatus?: StringFieldUpdateOperationsInput | string
     receiptNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    resultCode?: NullableStringFieldUpdateOperationsInput | string | null
+    resultDesc?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SuccessTransactionCreateInput = {
+    phoneNumber: string
+    amount: number
+    transactionId: string
+    receiptNumber: string
+    createdAt?: Date | string
+  }
+
+  export type SuccessTransactionUncheckedCreateInput = {
+    id?: number
+    phoneNumber: string
+    amount: number
+    transactionId: string
+    receiptNumber: string
+    createdAt?: Date | string
+  }
+
+  export type SuccessTransactionUpdateInput = {
+    phoneNumber?: StringFieldUpdateOperationsInput | string
+    amount?: FloatFieldUpdateOperationsInput | number
+    transactionId?: StringFieldUpdateOperationsInput | string
+    receiptNumber?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SuccessTransactionUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    phoneNumber?: StringFieldUpdateOperationsInput | string
+    amount?: FloatFieldUpdateOperationsInput | number
+    transactionId?: StringFieldUpdateOperationsInput | string
+    receiptNumber?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SuccessTransactionCreateManyInput = {
+    id?: number
+    phoneNumber: string
+    amount: number
+    transactionId: string
+    receiptNumber: string
+    createdAt?: Date | string
+  }
+
+  export type SuccessTransactionUpdateManyMutationInput = {
+    phoneNumber?: StringFieldUpdateOperationsInput | string
+    amount?: FloatFieldUpdateOperationsInput | number
+    transactionId?: StringFieldUpdateOperationsInput | string
+    receiptNumber?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SuccessTransactionUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    phoneNumber?: StringFieldUpdateOperationsInput | string
+    amount?: FloatFieldUpdateOperationsInput | number
+    transactionId?: StringFieldUpdateOperationsInput | string
+    receiptNumber?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type IntFilter<$PrismaModel = never> = {
@@ -2275,6 +3595,8 @@ export namespace Prisma {
     transactionId?: SortOrder
     paymentStatus?: SortOrder
     receiptNumber?: SortOrder
+    resultCode?: SortOrder
+    resultDesc?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -2291,6 +3613,8 @@ export namespace Prisma {
     transactionId?: SortOrder
     paymentStatus?: SortOrder
     receiptNumber?: SortOrder
+    resultCode?: SortOrder
+    resultDesc?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -2302,6 +3626,8 @@ export namespace Prisma {
     transactionId?: SortOrder
     paymentStatus?: SortOrder
     receiptNumber?: SortOrder
+    resultCode?: SortOrder
+    resultDesc?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -2391,6 +3717,43 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedDateTimeFilter<$PrismaModel>
     _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type SuccessTransactionCountOrderByAggregateInput = {
+    id?: SortOrder
+    phoneNumber?: SortOrder
+    amount?: SortOrder
+    transactionId?: SortOrder
+    receiptNumber?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type SuccessTransactionAvgOrderByAggregateInput = {
+    id?: SortOrder
+    amount?: SortOrder
+  }
+
+  export type SuccessTransactionMaxOrderByAggregateInput = {
+    id?: SortOrder
+    phoneNumber?: SortOrder
+    amount?: SortOrder
+    transactionId?: SortOrder
+    receiptNumber?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type SuccessTransactionMinOrderByAggregateInput = {
+    id?: SortOrder
+    phoneNumber?: SortOrder
+    amount?: SortOrder
+    transactionId?: SortOrder
+    receiptNumber?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type SuccessTransactionSumOrderByAggregateInput = {
+    id?: SortOrder
+    amount?: SortOrder
   }
 
   export type StringFieldUpdateOperationsInput = {

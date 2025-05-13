@@ -1,0 +1,18 @@
+run = "npm run dev"
+onBoot = "npm install && cd server && npm install && npx prisma generate && cd .."
+
+[env]
+DATABASE_URL = "${DATABASE_URL}"
+CONSUMER_KEY = "${CONSUMER_KEY}"
+CONSUMER_SECRET = "${CONSUMER_SECRET}"
+SHORTCODE = "${SHORTCODE}"
+PASSKEY = "${PASSKEY}"
+CALLBACK_URL = "${CALLBACK_URL}"
+
+[[ports]]
+localPort = 5173
+externalPort = 80
+
+[[ports]]
+localPort = 5001
+externalPort = 5001 

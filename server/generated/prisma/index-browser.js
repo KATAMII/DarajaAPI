@@ -127,8 +127,19 @@ exports.Prisma.TransactionScalarFieldEnum = {
   transactionId: 'transactionId',
   paymentStatus: 'paymentStatus',
   receiptNumber: 'receiptNumber',
+  resultCode: 'resultCode',
+  resultDesc: 'resultDesc',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
+};
+
+exports.Prisma.SuccessTransactionScalarFieldEnum = {
+  id: 'id',
+  phoneNumber: 'phoneNumber',
+  amount: 'amount',
+  transactionId: 'transactionId',
+  receiptNumber: 'receiptNumber',
+  createdAt: 'createdAt'
 };
 
 exports.Prisma.SortOrder = {
@@ -148,7 +159,8 @@ exports.Prisma.NullsOrder = {
 
 
 exports.Prisma.ModelName = {
-  Transaction: 'Transaction'
+  Transaction: 'Transaction',
+  SuccessTransaction: 'SuccessTransaction'
 };
 
 /**

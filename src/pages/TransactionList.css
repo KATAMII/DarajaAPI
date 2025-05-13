@@ -1,0 +1,336 @@
+.transactions-container {
+  max-width: 1000px;
+  margin: 30px auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.transactions-container h2 {
+  color: #333;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.transaction-tabs {
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.tab-headers {
+  display: flex;
+  border-bottom: 1px solid #e0e0e0;
+  background-color: #f9f9f9;
+}
+
+.tab-headers button {
+  flex: 1;
+  padding: 12px 15px;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  font-weight: 500;
+  color: #666;
+  transition: all 0.2s ease;
+}
+
+.tab-headers button:hover {
+  background-color: #f0f0f0;
+}
+
+.tab-headers button.tab-active {
+  background-color: #fff;
+  color: #28a745;
+  font-weight: 600;
+  border-bottom: 2px solid #28a745;
+}
+
+.tab-content {
+  padding: 15px;
+}
+
+.transaction-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.transaction-table th {
+  text-align: left;
+  padding: 12px 15px;
+  background-color: #f8f9fa;
+  color: #495057;
+  border-bottom: 2px solid #dee2e6;
+  font-weight: 600;
+}
+
+.transaction-table td {
+  padding: 12px 15px;
+  border-bottom: 1px solid #e9ecef;
+  color: #212529;
+}
+
+.transaction-table tbody tr:hover {
+  background-color: #f8f9fa;
+}
+
+.status-success td {
+  background-color: rgba(40, 167, 69, 0.05);
+}
+
+.status-pending td {
+  background-color: rgba(255, 193, 7, 0.05);
+}
+
+.status-failed td {
+  background-color: rgba(220, 53, 69, 0.05);
+}
+
+.no-data {
+  text-align: center;
+  color: #999;
+  padding: 40px 0 !important;
+  font-style: italic;
+}
+
+.loading, .error {
+  text-align: center;
+  padding: 40px;
+  color: #666;
+  font-size: 18px;
+}
+
+.error {
+  color: #dc3545;
+}
+
+@media (max-width: 768px) {
+  .transactions-container {
+    padding: 15px;
+    margin: 15px;
+  }
+  
+  .transaction-table {
+    font-size: 14px;
+  }
+  
+  .transaction-table th, 
+  .transaction-table td {
+    padding: 8px 10px;
+  }
+  
+  .tab-headers button {
+    padding: 10px;
+    font-size: 14px;
+  }
+}
+
+.transaction-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  gap: 15px;
+}
+
+.transaction-actions button {
+  padding: 10px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  border: none;
+  transition: all 0.2s ease;
+}
+
+.refresh-btn {
+  background-color: #f8f9fa;
+  color: #495057;
+  border: 1px solid #ced4da !important;
+}
+
+.refresh-btn:hover:not(:disabled) {
+  background-color: #e9ecef;
+}
+
+.check-all-btn {
+  background-color: #17a2b8;
+  color: white;
+  flex: 1;
+}
+
+.check-all-btn:hover:not(:disabled) {
+  background-color: #138496;
+}
+
+.check-status-btn {
+  background-color: #17a2b8;
+  color: white;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.check-status-btn:hover:not(:disabled) {
+  background-color: #138496;
+}
+
+.transaction-actions button:disabled,
+.check-status-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.status-message {
+  background-color: #f8f9fa;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  padding: 10px 15px;
+  margin-bottom: 20px;
+  color: #495057;
+  text-align: center;
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.status-badge.success {
+  background-color: rgba(40, 167, 69, 0.2);
+  color: #155724;
+  border: 1px solid rgba(40, 167, 69, 0.4);
+}
+
+.status-badge.pending {
+  background-color: rgba(255, 193, 7, 0.2);
+  color: #856404;
+  border: 1px solid rgba(255, 193, 7, 0.4);
+}
+
+.status-badge.failed {
+  background-color: rgba(220, 53, 69, 0.2);
+  color: #721c24;
+  border: 1px solid rgba(220, 53, 69, 0.4);
+}
+
+.details-btn {
+  background-color: #6c757d;
+  color: white;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 12px;
+  white-space: nowrap;
+  margin-left: 5px;
+}
+
+.details-btn:hover:not(:disabled) {
+  background-color: #5a6268;
+}
+
+.transaction-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.transaction-modal {
+  background-color: white;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.modal-header h3 {
+  margin: 0;
+  color: #333;
+  font-size: 18px;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #6c757d;
+}
+
+.close-btn:hover {
+  color: #343a40;
+}
+
+.modal-content {
+  padding: 20px;
+}
+
+.detail-row {
+  margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+.detail-label {
+  font-weight: 500;
+  color: #6c757d;
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+.detail-value {
+  font-size: 16px;
+  color: #212529;
+  word-break: break-all;
+}
+
+.modal-actions {
+  margin-top: 20px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* Make transaction rows clickable */
+.transaction-table tbody tr {
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.transaction-table tbody tr:hover {
+  background-color: #f1f3f5 !important;
+}
+
+@media (min-width: 576px) {
+  .detail-row {
+    flex-direction: row;
+    align-items: center;
+  }
+  
+  .detail-label {
+    min-width: 140px;
+    margin-bottom: 0;
+  }
+} 
