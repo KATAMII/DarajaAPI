@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon index.js",
     "start": "node index.js",
-    "postinstall": "npx prisma generate"
+    "postinstall": "prisma generate"
   },
   "keywords": [],
   "author": "",
@@ -24,5 +24,8 @@
   },
   "devDependencies": {
     "nodemon": "^3.1.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
   }
 }

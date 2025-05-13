@@ -21,6 +21,8 @@ model Transaction {
   transactionId String   @unique
   paymentStatus String
   receiptNumber String?
+  resultCode    String?
+  resultDesc    String?
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 }
