@@ -33,22 +33,24 @@ COPY --from=build /app/dist ./public
 # Copy server package files
 COPY server/package*.json ./
 
+# Copy server files first to ensure prisma directory exists
+COPY server/ ./
+
+# Explicitly create the prisma directory and copy schema
+RUN mkdir -p ./prisma
+COPY server/prisma/schema.prisma ./prisma/
+
 # Install server dependencies
 RUN npm install
-
-# Copy prisma schema files
-COPY server/prisma ./prisma/
-
-# Copy server files
-COPY server/ ./
 
 # Ensure the output directory for Prisma exists
 RUN mkdir -p ./generated/prisma
 
 # Generate Prisma client
-ENV DATABASE_URL="postgresql://dummy:dummy@localhost:5432/dummy?schema=public"
 RUN npx prisma generate
-ENV DATABASE_URL=""
+
+# Set environment variables
+ENV NODE_ENV=production
 
 # Expose port
 EXPOSE 5001
