@@ -4,7 +4,8 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import axios from 'axios';
-import { PrismaClient } from './generated/prisma/index.js';
+import pkg from '@prisma/client';
+const { PrismaClient } = pkg;
 
 // Load environment variables from .env file
 dotenv.config();
