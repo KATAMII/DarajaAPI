@@ -30,7 +30,17 @@ app.use(cors({
 }));
 app.use(express.json());
 
-// Serve static files from the public directory
+// Check if the public directory exists in various locations
+console.log("Checking for public directory in:", path.join(__dirname, '..', 'public'));
+console.log("Checking for public directory in:", path.join(__dirname, 'public'));
+console.log("Checking for public directory in:", '/app/public');
+
+// Try different potential locations for the static files
+// First try the standard location (assuming Docker deployment)
+app.use(express.static('/app/public'));
+// Then try relative to the server directory
+app.use(express.static(path.join(__dirname, 'public')));
+// Finally try one directory up (for local development)
 app.use(express.static(path.join(__dirname, '..', 'public')));
 
 // Validate M-Pesa transaction ID for security
@@ -404,8 +414,30 @@ app.post('/check-transaction-status/:id', async (req, res) => {
 
 // Define a catch-all route to serve your React app
 app.get('*', (req, res) => {
-  // This will serve your React app for all non-API routes
-  res.sendFile(path.join(__dirname, '..', 'public', 'index.html'));
+  // Try different potential locations for index.html
+  const possiblePaths = [
+    '/app/public/index.html',
+    path.join(__dirname, 'public', 'index.html'),
+    path.join(__dirname, '..', 'public', 'index.html'),
+    path.join(__dirname, '..', 'dist', 'index.html')
+  ];
+  
+  console.log('Trying to serve index.html from possible locations:', possiblePaths);
+  
+  // Find the first path that exists
+  for (const htmlPath of possiblePaths) {
+    try {
+      if (require('fs').existsSync(htmlPath)) {
+        console.log('Found index.html at:', htmlPath);
+        return res.sendFile(htmlPath);
+      }
+    } catch (error) {
+      console.log(`Error checking path ${htmlPath}:`, error.message);
+    }
+  }
+  
+  // If no path exists, send a helpful error message
+  res.status(404).send('Frontend files not found. Please build the React app with "npm run build" and ensure the files are correctly copied to the public directory.');
 });
 
 // Start server

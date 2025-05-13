@@ -27,8 +27,11 @@ RUN apt-get update && apt-get install -y openssl
 # Set working directory
 WORKDIR /app
 
-# Copy the built frontend files
-COPY --from=build /app/dist ./public
+# Copy the built frontend files from the build stage
+COPY --from=build /app/dist /app/public
+
+# List the contents of the public directory to debug
+RUN ls -la /app/public || echo "Public directory not found"
 
 # Copy server package files
 COPY server/package*.json ./
