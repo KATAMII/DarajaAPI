@@ -40,14 +40,20 @@ COPY server/ ./
 RUN mkdir -p ./prisma
 COPY server/prisma/schema.prisma ./prisma/
 
+# Create a temporary .env file with a dummy DATABASE_URL for Prisma to generate
+RUN echo 'DATABASE_URL="postgresql://dummy:password@localhost:5432/dummy"' > .env
+
 # Install server dependencies
 RUN npm install
 
 # Ensure the output directory for Prisma exists
 RUN mkdir -p ./generated/prisma
 
-# Generate Prisma client
-RUN npx prisma generate
+# Generate Prisma client with explicit schema path
+RUN npx prisma generate --schema=./prisma/schema.prisma
+
+# Remove the temporary .env file
+RUN rm .env
 
 # Set environment variables
 ENV NODE_ENV=production

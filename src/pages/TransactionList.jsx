@@ -230,17 +230,17 @@ const TransactionList = () => {
         
         <div className="tab-content">
           <table className="transaction-table">
-            <thead>
-              <tr>
+        <thead>
+          <tr>
                 <th>Phone Number</th>
-                <th>Amount</th>
-                <th>Status</th>
+            <th>Amount</th>
+            <th>Status</th>
                 <th>Receipt Number</th>
-                <th>Date</th>
+            <th>Date</th>
                 <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
+          </tr>
+        </thead>
+        <tbody>
               {displayTransactions.length === 0 ? (
                 <tr>
                   <td colSpan="6" className="no-data">
@@ -290,11 +290,11 @@ const TransactionList = () => {
                         Details
                       </button>
                     </td>
-                  </tr>
+            </tr>
                 ))
               )}
-            </tbody>
-          </table>
+        </tbody>
+      </table>
         </div>
       </div>
 
